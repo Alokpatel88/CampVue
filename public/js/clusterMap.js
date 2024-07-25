@@ -7,7 +7,7 @@ const map = new mapboxgl.Map({
 
 ,
     center: [78.078743, 27.891535],
-    zoom: 3.2
+    zoom: 3.3
 });
 
 map.on('load', () => {
