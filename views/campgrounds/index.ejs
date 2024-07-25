@@ -1,0 +1,131 @@
+<% layout('/layouts/boilerplatewithoutFooter') %>
+<div class="row">
+    <div id='map' class="mb-4" style='width: 100%; height: 500px;'></div>
+
+    <h1 class="page-title text-muted text-center mb-4">Search and View Our Campgrounds</h1>
+    <form action="/results/?" class="d-flex mb-5">
+        <input class="form-control me-2" type="search" placeholder="Search Campgrounds..." name="search_query" aria-label="Search">
+        <button class="btn btn-outline-dark" type="submit">Search</button>
+      </form>
+
+        <% for (let campground of campgrounds){ %>
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-4">
+                        <% if (campground.images.length) { %>
+                            <img src="<%= (campground.images)[0].url %>" class="card-img-top" alt="Campground Image">
+                        <% } else { %>
+                            <img src="/img/home.jpg" class="card-img-top" alt="">
+                        <% } %>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-details">
+                            <div class="card-title">
+                                <%= campground.title %>
+                            </div>
+
+                            <small class="card-subtitle text-muted">
+                                <%= campground.location %>
+                            </small>
+
+                            <p class="card-text">
+                                <%= campground.description %>
+                            </p>
+                            <div class="card-actions ">
+                                <a href="/campgrounds/<%= campground._id %>" class="btn btn-dark">View <%=
+                                        campground.title %></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+
+    <script>
+        const mapToken = '<%- process.env.MAPBOX_TOKEN %>'
+        const campgrounds = {features : <%- JSON.stringify(campgrounds) %>} 
+    </script>
+    <script src="/js/clusterMap.js"></script>
+
+    <style>
+        #map {
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.238);
+        }
+
+        .card {
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            /* margin-left: -8px; */
+            /* margin-right: -8px; */
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 100%;
+            max-height: 300px;
+
+            object-fit: cover;
+            border-radius: 8px 0px 0px 8px;
+            margin-left: -12px;
+        }
+
+        .card-details {
+            flex: 1;
+            padding: 13px;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .card-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .card-subtitle {
+            font-size: 23px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            flex: 1;
+            margin-bottom: 15px;
+        }
+
+        .page-title {
+            font-size: 35px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        /* Media query for responsive behavior */
+        @media (max-width: 767px) {
+            .card {
+                flex-direction: column;
+                align-items: center;
+                margin-left: 0;
+            }
+
+            .card-img-top {
+                margin-left: 0;
+                margin-top: 8px;
+                border-radius: 8px 8px 8px 8px;
+            }
+
+            .col-md-4,
+            .col-md-8 {
+                width: 100%;
+            }
+        }
+    </style>
