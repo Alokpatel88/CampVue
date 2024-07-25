@@ -1,9 +1,10 @@
-mapboxgl.accessToken = mapToken;
+mapboxgl.accessToken = mapToken; // Ensure this is your Mapbox access token
+
 const map = new mapboxgl.Map({
-    container: 'map', // container ID
-    style: 'mapbox://styles/mapbox/navigation-night-v1', // style URL
-    center: campground.geometry.coordinates, // starting position [lng, lat]
-    zoom: 10 // starting zoom
+    container: 'map', // The ID of the HTML element to hold the map
+    style: 'mapbox://styles/mapbox/outdoors-v11', // Style URL for green nature theme
+    center: campground.geometry.coordinates, // Initial map center [lng, lat]
+    zoom: 10 // Initial zoom level
 });
 
 map.addControl(new mapboxgl.NavigationControl());
@@ -13,6 +14,6 @@ const marker = new mapboxgl.Marker()
     .setPopup(
         new mapboxgl.Popup({ offset: 25 })
             .setHTML(
-                `<h5>${campground.title}   </h5><p>${campground.location}</p>`
+                `<h5>${campground.title}</h5><p>${campground.location}</p>`
             )
-    ).addTo(map)
+    ).addTo(map);

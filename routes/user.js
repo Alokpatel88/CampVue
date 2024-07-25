@@ -17,7 +17,7 @@ router.post('/register', async (req, res, next) => {
             if (err) {
                 return next(err)
             }
-            req.flash('success', `Welcome to Camphive ${user.username}!`)
+            req.flash('success', `Welcome to CampVue ${user.username}!`)
             res.redirect('/campgrounds')
         })
     } catch (error) {
