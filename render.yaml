@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: campvue
+    env: node
+    buildCommand: npm install && ./deploy.sh
+    startCommand: npm start
+    plan: free
+    repo: https://github.com/Alokpatel88/CampVue
+    branch: main
+    autoDeploy: true
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: PORT
+        sync: false
+      - key: GITHUB_TOKEN
+        sync: false
